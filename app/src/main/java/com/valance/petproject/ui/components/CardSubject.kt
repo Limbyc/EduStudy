@@ -19,48 +19,73 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.valance.petproject.R
 import com.valance.petproject.data.model.ItemData
+import com.valance.petproject.data.model.LessonsData
 
 @Composable
-fun CardSubject(item: ItemData) {
+fun CardSubject(
+    modifier: Modifier = Modifier,
+    item: ItemData,
+) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .width(149.dp)
             .height(119.dp)
             .clip(RoundedCornerShape(16.dp))
             .background(color = item.cardColor)
     ) {
         Column(
-            modifier = Modifier.fillMaxSize()
+            modifier = modifier.fillMaxSize()
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth()
+                modifier = modifier.fillMaxWidth()
             ) {
                 Image(
+                    modifier = modifier
+                        .padding(
+                            top = 16.dp,
+                            start = 16.dp
+                        ),
                     painter = painterResource(id = item.imageId),
-                    contentDescription = "",
-                    modifier = Modifier.padding(top = 16.dp, start = 16.dp)
+                    contentDescription = null,
                 )
-                Spacer(modifier = Modifier.weight(1f))
+
+                Spacer(modifier = modifier.weight(1f))
+
                 Image(
+                    modifier = modifier
+                        .padding(
+                        top = 16.dp,
+                        end = 16.dp
+                    ),
                     painter = painterResource(id = R.drawable.ellipsis),
-                    contentDescription = "",
-                    modifier = Modifier.padding(top = 16.dp, end = 16.dp)
+                    contentDescription = null,
                 )
             }
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = modifier.weight(1f))
+
             Text(
+                modifier = modifier
+                    .padding(
+                    start = 16.dp,
+                    bottom = 16.dp
+                ),
                 text = item.title,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = Color.White,
-                modifier = Modifier.padding(start = 16.dp, bottom = 16.dp)
             )
         }
     }
 }
 
+@Preview
+@Composable
+private fun CardSubjectPreview() {
+    CardSubject(item = ItemData(R.drawable.earth, "Hello",  Color.Gray ))
+}
 

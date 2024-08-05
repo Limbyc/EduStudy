@@ -35,6 +35,8 @@ import com.valance.petproject.data.model.ItemData
 import com.valance.petproject.data.model.LessonsData
 import com.valance.petproject.ui.components.CardLesson
 import com.valance.petproject.ui.components.CardSubject
+import com.valance.petproject.ui.components.MainText
+import com.valance.petproject.ui.components.SecondaryText
 import com.valance.petproject.ui.theme.CardColorBlew
 import com.valance.petproject.ui.theme.CardColorYellow
 import com.valance.petproject.ui.theme.Green
@@ -70,7 +72,7 @@ fun SearchBarAndCloudPartOfScreen(modifier: Modifier = Modifier) {
             {
                 Image(
                     painter = painterResource(id = R.drawable.searchicon),
-                    contentDescription = "",
+                    contentDescription = null,
                     modifier = modifier
                         .align(Alignment.Center)
                 )
@@ -81,7 +83,7 @@ fun SearchBarAndCloudPartOfScreen(modifier: Modifier = Modifier) {
                     .fillMaxWidth()
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.cloud), contentDescription = "",
+                    painter = painterResource(id = R.drawable.cloud), contentDescription = null,
                     modifier = modifier
                         .align(Alignment.TopEnd)
                 )
@@ -98,7 +100,7 @@ fun PicturePart(modifier: Modifier = Modifier) {
     ) {
         Image(
             painter = painterResource(id = R.drawable.globus),
-            contentDescription = "",
+            contentDescription = null,
             modifier = modifier
                 .align(Alignment.TopEnd)
                 .offset(y = 82.dp)
@@ -123,32 +125,21 @@ fun BottomPart(
                 .fillMaxSize()
                 .padding(top = 28.dp, start = 28.dp)
         ) {
-            Text(
-                text = "Subjects",
-                fontWeight = FontWeight.Bold,
-                fontSize = 24.sp,
-                color = Color.Black,
-            )
-            Text(
-                text = "Recommendations for you",
-                fontWeight = FontWeight.Medium,
-                fontSize = 14.sp,
-                color = Color.Gray,
-                modifier = modifier.padding(top = 2.dp)
+            MainText(text = R.string.subject.toString())
+
+            SecondaryText(
+                modifier = modifier.padding(top = 2.dp),
+                text = R.string.recommendations_for_you.toString(),
             )
             SubjectList(items = items)
-            Text(
-                text = "Your Schedule",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = modifier.padding(top = 28.dp)
+
+            MainText(
+                modifier = modifier.padding(top = 28.dp),
+                text = R.string.your_schedule.toString(),
             )
-            Text(
-                text = "Next lessons",
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Medium,
-                color = Color.Gray,
-                modifier = modifier.padding(top = 5.dp)
+            SecondaryText(
+                modifier = modifier.padding(top = 5.dp),
+                text = R.string.next_lessons.toString(),
             )
             LessonList(lessons = lessons)
         }
@@ -175,11 +166,11 @@ fun SubjectList(
     items: List<ItemData>,
 ) {
     LazyRow(
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
         modifier = modifier.padding(top = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         items(items) { item ->
-            CardSubject(item)
+            CardSubject(item = item)
         }
     }
 }

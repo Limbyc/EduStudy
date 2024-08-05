@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">PetProject</string>
+
+    // MainScreen
+    <string name="subject">Subject</string>
+    <string name="your_schedule">Your Schedule</string>
+    <string name="next_lessons">Next lessons</string>
+    <string name="recommendations_for_you">Recommendations for you</string>
 </resources>
