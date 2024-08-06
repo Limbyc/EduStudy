@@ -1,19 +1,30 @@
 package com.valance.petproject.ui.components
 
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun MainText(
-    text: String,
+fun GeneralTextContent(
     modifier: Modifier = Modifier,
-    ){
+    mainText: String? = null,
+    secondaryText: String? = null,
+){
+    Column(modifier = modifier) {
+        mainText?.let { MainText(text = it) }
+        secondaryText?.let { SecondaryText(text = it) }
+    }
+}
+
+@Composable
+fun MainText(
+    modifier: Modifier = Modifier,
+    text: String,
+){
     Text(
         modifier = modifier,
         text = text,
@@ -27,7 +38,7 @@ fun MainText(
 fun SecondaryText(
     modifier: Modifier = Modifier,
     text: String,
-    ){
+){
     Text(
         modifier = modifier,
         text = text,

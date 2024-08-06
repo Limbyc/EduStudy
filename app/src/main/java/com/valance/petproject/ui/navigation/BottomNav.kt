@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -33,6 +34,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.valance.petproject.R
 import com.valance.petproject.ui.BottomBarScreen
 
 @Composable
@@ -102,7 +104,7 @@ fun RowScope.AddItem(
                     }
                 },
                 indication = null,
-                interactionSource = remember { MutableInteractionSource() } // убирает визуальный эффект нажатия
+                interactionSource = remember { MutableInteractionSource() }
             )
     ) {
         Row(
@@ -129,7 +131,7 @@ fun NavIcon(
     modifier: Modifier = Modifier,
     @DrawableRes icon: Int,
     selected: Boolean,
-    selectedColor: Color =  Color(0xFFFF7648), // todo: make a color resource instead
+    selectedColor: Color =  colorResource(id = R.color.orange),
 ) {
     Icon(
         modifier = modifier,

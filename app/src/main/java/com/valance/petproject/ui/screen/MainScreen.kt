@@ -1,5 +1,6 @@
 package com.valance.petproject.ui.screen
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -14,31 +15,23 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.valance.petproject.R
 import com.valance.petproject.data.model.ItemData
 import com.valance.petproject.data.model.LessonsData
 import com.valance.petproject.ui.components.CardLesson
 import com.valance.petproject.ui.components.CardSubject
-import com.valance.petproject.ui.components.MainText
-import com.valance.petproject.ui.components.SecondaryText
-import com.valance.petproject.ui.theme.CardColorBlew
-import com.valance.petproject.ui.theme.CardColorYellow
+import com.valance.petproject.ui.components.GeneralTextContent
 import com.valance.petproject.ui.theme.Green
 import com.valance.petproject.ui.theme.LightGreen
 
@@ -125,22 +118,30 @@ fun BottomPart(
                 .fillMaxSize()
                 .padding(top = 28.dp, start = 28.dp)
         ) {
-            MainText(text = R.string.subject.toString())
+            GeneralTextContent(
+                modifier = modifier,
+                mainText = stringResource(R.string.subject),
+                secondaryText = null
+            )
 
-            SecondaryText(
+            GeneralTextContent(
                 modifier = modifier.padding(top = 2.dp),
-                text = R.string.recommendations_for_you.toString(),
+                mainText = null,
+                secondaryText = stringResource(R.string.recommendations_for_you),
             )
             SubjectList(items = items)
 
-            MainText(
+            GeneralTextContent(
                 modifier = modifier.padding(top = 28.dp),
-                text = R.string.your_schedule.toString(),
+                mainText = stringResource(R.string.your_schedule),
+                secondaryText = null
             )
-            SecondaryText(
+            GeneralTextContent(
                 modifier = modifier.padding(top = 5.dp),
-                text = R.string.next_lessons.toString(),
+                mainText = null,
+                secondaryText = stringResource(R.string.next_lessons),
             )
+
             LessonList(lessons = lessons)
         }
     }
