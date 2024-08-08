@@ -1,6 +1,5 @@
 package com.valance.petproject.ui.screen
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -37,8 +36,10 @@ import com.valance.petproject.ui.theme.LightGreen
 
 @Composable
 fun MainScreen() {
+    val mockLesson = LessonsData("title", "theme", "place", "teacher",
+        "https://avatars.mds.yandex.net/i?id=86fcf8bc20614d13ffd146f673f64ddcd1ab6c18-4268172-images-thumbs&n=13")
     SearchBarAndCloudPartOfScreen()
-    BottomPart(items = listOf(), lessons = listOf())
+    BottomPart(items = listOf(), lessons = listOf(mockLesson))
     PicturePart()
 }
 
@@ -112,33 +113,20 @@ fun BottomPart(
             .padding(top = 340.dp)
             .clip(shape = RoundedCornerShape(topStart = 28.dp))
             .background(color = Color.White)
+            .fillMaxSize()
+            .padding(start = 28.dp, top = 28.dp)
     ) {
-        Column(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(top = 28.dp, start = 28.dp)
-        ) {
-            GeneralTextContent(
-                modifier = modifier,
-                mainText = stringResource(R.string.subject),
-                secondaryText = null
-            )
+        Column {
 
             GeneralTextContent(
-                modifier = modifier.padding(top = 2.dp),
-                mainText = null,
+                mainText = stringResource(R.string.subject),
                 secondaryText = stringResource(R.string.recommendations_for_you),
             )
+
             SubjectList(items = items)
 
             GeneralTextContent(
-                modifier = modifier.padding(top = 28.dp),
                 mainText = stringResource(R.string.your_schedule),
-                secondaryText = null
-            )
-            GeneralTextContent(
-                modifier = modifier.padding(top = 5.dp),
-                mainText = null,
                 secondaryText = stringResource(R.string.next_lessons),
             )
 

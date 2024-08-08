@@ -17,12 +17,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.valance.petproject.R
 import com.valance.petproject.data.model.LessonsData
 import com.valance.petproject.ui.theme.CardColorGreen
@@ -83,12 +86,13 @@ fun CardLesson(
                 }
 
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Image(
-                        modifier = Modifier
+
+                    AsyncImage(
+                        modifier = modifier
                             .padding(4.dp)
                             .size(16.dp)
-                            .clip(shape = RoundedCornerShape(50)),
-                        painter = painterResource(id = R.drawable.ic_launcher_background),
+                            .clip(RoundedCornerShape(50)),
+                        model = lesson.teacherIcon,
                         contentDescription = null,
                     )
 
@@ -109,6 +113,6 @@ fun CardLesson(
 @Composable
 private fun CardLessonPreview() {
     CardLesson(lesson = LessonsData("title", "theme", "place", "teacher",
-        "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg"))
+        "https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg"))
 }
 

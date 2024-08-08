@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.google.gms.google.services)
+    alias(libs.plugins.google.firebase.crashlytics)
 }
 
 android {
@@ -82,5 +84,11 @@ dependencies {
 
     //shapes
     implementation (libs.androidx.graphics.shapes)
+    
+    //Coil
+    implementation(libs.coil.compose)
 
+    //firebase
+    implementation(libs.firebase.database)
+    implementation(libs.firebase.crashlytics)
 }
