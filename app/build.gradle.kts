@@ -91,4 +91,8 @@ dependencies {
     //firebase
     implementation(libs.firebase.database)
     implementation(libs.firebase.crashlytics)
+
+    //Koin
+    implementation (libs.koin.android)
+
 }

@@ -7,8 +7,19 @@ import coil.disk.DiskCache
 import coil.memory.MemoryCache
 import coil.request.CachePolicy
 import coil.util.DebugLogger
+import com.valance.petproject.di.appModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.GlobalContext.startKoin
 
 class MyApp : Application(), ImageLoaderFactory {
+
+    override fun onCreate() {
+        super.onCreate()
+        startKoin {
+            androidContext(this@MyApp)
+            modules(appModule)
+        }
+    }
 
     override fun newImageLoader(): ImageLoader {
         return ImageLoader(this).newBuilder()
@@ -29,4 +40,5 @@ class MyApp : Application(), ImageLoaderFactory {
             .logger(DebugLogger())
             .build()
     }
+
 }

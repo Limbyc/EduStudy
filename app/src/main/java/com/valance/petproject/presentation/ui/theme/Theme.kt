@@ -1,4 +1,4 @@
-package com.valance.petproject.ui.theme
+package com.valance.petproject.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build

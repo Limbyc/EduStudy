@@ -1,4 +1,4 @@
-package com.valance.petproject.ui.components
+package com.valance.petproject.presentation.ui.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
