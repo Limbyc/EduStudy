@@ -1,5 +1,6 @@
 package com.valance.petproject.presentation.ui.screen
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -16,7 +17,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,22 +31,33 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.valance.petproject.R
-import com.valance.petproject.data.model.ItemData
-import com.valance.petproject.data.model.LessonsData
+import com.valance.petproject.domain.model.LessonCard
+import com.valance.petproject.domain.model.SubjectCard
+import com.valance.petproject.presentation.state.LessonCardViewState
+import com.valance.petproject.presentation.state.SubjectCardViewState
 import com.valance.petproject.presentation.ui.components.CardLesson
 import com.valance.petproject.presentation.ui.components.CardSubject
 import com.valance.petproject.presentation.ui.components.GeneralTextContent
 import com.valance.petproject.presentation.ui.theme.Green
 import com.valance.petproject.presentation.ui.theme.LightGreen
+import com.valance.petproject.presentation.viewmodel.LessonCardViewModel
+import com.valance.petproject.presentation.viewmodel.SubjectCardViewModel
+import org.koin.androidx.compose.getViewModel
+
 
 @Composable
 fun MainScreen() {
-    val mockLesson = LessonsData("title", "theme", "place", "teacher",
-        "https://avatars.mds.yandex.net/i?id=86fcf8bc20614d13ffd146f673f64ddcd1ab6c18-4268172-images-thumbs&n=13")
+    val lessonCardViewModel: LessonCardViewModel = getViewModel()
+    val state by lessonCardViewModel.state.collectAsState()
+
+    val subjectCardViewModel: SubjectCardViewModel = getViewModel()
+    val subState by subjectCardViewModel.state.collectAsState()
+
     SearchBarAndCloudPartOfScreen()
-    BottomPart(items = listOf(), lessons = listOf(mockLesson))
+    BottomPart(lessonState = state, subjectState = subState )
     PicturePart()
 }
+
 
 @Composable
 fun SearchBarAndCloudPartOfScreen(modifier: Modifier = Modifier) {
@@ -105,32 +121,58 @@ fun PicturePart(modifier: Modifier = Modifier) {
 @Composable
 fun BottomPart(
     modifier: Modifier = Modifier,
-    items: List<ItemData>,
-    lessons: List<LessonsData>,
+    lessonState: LessonCardViewState,
+    subjectState: SubjectCardViewState,
 ) {
-    Box(
-        modifier = modifier
-            .padding(top = 340.dp)
-            .clip(shape = RoundedCornerShape(topStart = 28.dp))
-            .background(color = Color.White)
-            .fillMaxSize()
-            .padding(start = 28.dp, top = 28.dp)
-    ) {
-        Column {
+    when (lessonState) {
+        is LessonCardViewState.Loading -> {
+            Box(
+                modifier = modifier
+                    .fillMaxSize()
+                    .background(Color.Transparent)
+            ) {
+                CircularProgressIndicator()
+            }
+        }
 
-            GeneralTextContent(
-                mainText = stringResource(R.string.subject),
-                secondaryText = stringResource(R.string.recommendations_for_you),
-            )
+        is LessonCardViewState.Success -> {
+            val lessons = lessonState.lessons
 
-            SubjectList(items = items)
+            Box(
+                modifier = modifier
+                    .padding(top = 340.dp)
+                    .clip(shape = RoundedCornerShape(topStart = 28.dp))
+                    .background(color = Color.White)
+                    .fillMaxSize()
+                    .padding(start = 28.dp, top = 28.dp)
+            ) {
+                Column {
+                    GeneralTextContent(
+                        mainText = stringResource(R.string.subject),
+                        secondaryText = stringResource(R.string.recommendations_for_you)
+                    )
+                    when (subjectState) {
+                        is SubjectCardViewState.Success -> {
+                            SubjectList(items = subjectState.subject)
+                        }
+                        is SubjectCardViewState.Loading -> {
 
-            GeneralTextContent(
-                mainText = stringResource(R.string.your_schedule),
-                secondaryText = stringResource(R.string.next_lessons),
-            )
+                        }
+                        is SubjectCardViewState.Error -> {
 
-            LessonList(lessons = lessons)
+                        }
+                    }
+                    GeneralTextContent(
+                        mainText = stringResource(R.string.your_schedule),
+                        secondaryText = stringResource(R.string.next_lessons)
+                    )
+                    LessonList(lessons = lessons)
+                }
+            }
+        }
+
+        is LessonCardViewState.Error -> {
+            Text(text = lessonState.message)
         }
     }
 }
@@ -138,8 +180,10 @@ fun BottomPart(
 @Composable
 fun LessonList(
     modifier: Modifier = Modifier,
-    lessons: List<LessonsData>,
+    lessons: List<LessonCard>
 ) {
+    Log.d("LessonList", "Lessons to display: $lessons")
+
     LazyColumn(
         modifier = modifier.padding(end = 28.dp, top = 16.dp)
     ) {
@@ -149,10 +193,11 @@ fun LessonList(
     }
 }
 
+
 @Composable
 fun SubjectList(
     modifier: Modifier = Modifier,
-    items: List<ItemData>,
+    items: List<SubjectCard>,
 ) {
     LazyRow(
         modifier = modifier.padding(top = 16.dp),
@@ -165,7 +210,7 @@ fun SubjectList(
 }
 
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 fun MainScreenPreview() {
     MainScreen()

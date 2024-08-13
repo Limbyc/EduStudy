@@ -7,6 +7,7 @@ import coil.disk.DiskCache
 import coil.memory.MemoryCache
 import coil.request.CachePolicy
 import coil.util.DebugLogger
+import com.google.firebase.FirebaseApp
 import com.valance.petproject.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext.startKoin
@@ -15,6 +16,8 @@ class MyApp : Application(), ImageLoaderFactory {
 
     override fun onCreate() {
         super.onCreate()
+        FirebaseApp.initializeApp(this)
+
         startKoin {
             androidContext(this@MyApp)
             modules(appModule)

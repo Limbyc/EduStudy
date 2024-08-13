@@ -2,8 +2,13 @@
 agp = "8.5.0"
 coil = "2.7.0"
 graphicsShapes = "1.0.0-rc01"
+gson = "2.10.1"
+insertKoinKoinAndroidxCompose = "3.2.0"
 koinAndroid = "3.5.6"
 koinAndroidxCompose = "1.1.5"
+koinAndroidxComposeVersion = "3.4.0"
+koinAndroidxViewmodelCompose = "3.4.0"
+koinAndroidxViewmodelVersion = "3.4.0"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
 
@@ -31,6 +36,7 @@ firebaseCrashlytics = "19.0.3"
 googleGmsGoogleServices = "4.4.2"
 googleFirebaseCrashlytics = "3.0.2"
 firebaseDatabase = "21.0.0"
+media3Common = "1.4.0"
 
 
 
@@ -44,6 +50,7 @@ androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", versi
 
 coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 
@@ -62,6 +69,10 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinAndroid" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinAndroidxCompose" }
+koin-androidx-compose-v320 = { module = "io.insert-koin:koin-androidx-compose", version.ref = "insertKoinKoinAndroidxCompose" }
+koin-androidx-viewmodel-compose = { module = "org.koin:koin-androidx-viewmodel-compose", version.ref = "koinAndroidxViewmodelCompose" }
+koin-koin-androidx-compose = { module = "org.koin:koin-androidx-compose", version.ref = "koinAndroidxComposeVersion" }
+koin-koin-androidx-viewmodel = { module = "org.koin:koin-androidx-viewmodel", version.ref = "koinAndroidxViewmodelVersion" }
 ui = { module = "androidx.compose.ui:ui", version.ref = "ui" }
 ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "uiTooling" }
 ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "uiToolingPreview" }
@@ -71,6 +82,7 @@ androidx-material-icons-core = { module = "androidx.compose.material:material-ic
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics", version.ref = "firebaseCrashlytics" }
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
+androidx-media3-common = { group = "androidx.media3", name = "media3-common", version.ref = "media3Common" }
 
 
 
