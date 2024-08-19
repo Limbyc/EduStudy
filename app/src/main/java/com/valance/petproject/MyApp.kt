@@ -16,12 +16,13 @@ class MyApp : Application(), ImageLoaderFactory {
 
     override fun onCreate() {
         super.onCreate()
-        FirebaseApp.initializeApp(this)
 
         startKoin {
             androidContext(this@MyApp)
             modules(appModule)
         }
+        FirebaseApp.initializeApp(this)
+
     }
 
     override fun newImageLoader(): ImageLoader {

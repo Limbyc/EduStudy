@@ -44,6 +44,7 @@ fun CardSubject(
 
     Box(
         modifier = modifier
+            .padding(bottom = 10.dp)
             .width(149.dp)
             .height(119.dp)
             .clip(RoundedCornerShape(16.dp))
@@ -62,7 +63,7 @@ fun CardSubject(
                             top = 16.dp,
                             start = 16.dp
                         )
-                        .size(16.dp)
+                        .size(24.dp)
                         .clip(CircleShape),
                     model = item.image,
                     contentDescription = null,
