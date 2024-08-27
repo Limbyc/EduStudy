@@ -12,10 +12,9 @@ val Pink40 = Color(0xFF7D5260)
 
 val Green = Color(0xFF00664F)
 val LightGreen = Color(0x1AFFFFFF)
-val CardColorYellow = Color(0xFFFF7648)
-val CardColorBlew = Color(0xFF8F98FF)
 val CardColorGreen = Color(0xFF4DC591)
 
 val BottomBar = Color(0xFFFAF9F9)
-val BottomBarSelectedItem = Color(0xFFFF7648)
-val BottomBarUnSelectedItem = Color(0xFF88889D)
+
+val ButtonDate = Color(0x8078C7A5)
+val ButtonDateText = Color(0xFF4DC591)

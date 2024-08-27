@@ -6,4 +6,7 @@
     <string name="your_schedule">Your Schedule</string>
     <string name="next_lessons">Next lessons</string>
     <string name="recommendations_for_you">Recommendations for you</string>
+
+    //NotesScreen
+    <string name="today">Today</string>
 </resources>

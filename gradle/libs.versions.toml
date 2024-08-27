@@ -1,6 +1,7 @@
 [versions]
 agp = "8.5.0"
 coil = "2.7.0"
+composesinglerowcalenderVersion = "version"
 graphicsShapes = "1.0.0-rc01"
 gson = "2.10.1"
 insertKoinKoinAndroidxCompose = "3.2.0"
@@ -41,6 +42,7 @@ media3Common = "1.4.0"
 
 
 [libraries]
+ahmednader65-composesinglerowcalender = { module = "io.github.ahmednader65:ComposeSingleRowCalender", version.ref = "composesinglerowcalenderVersion" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-graphics-shapes = { module = "androidx.graphics:graphics-shapes", version.ref = "graphicsShapes" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

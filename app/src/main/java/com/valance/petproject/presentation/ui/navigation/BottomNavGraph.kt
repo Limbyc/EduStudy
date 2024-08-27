@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.valance.petproject.presentation.ui.BottomBarScreen
 import com.valance.petproject.presentation.ui.screen.MainScreen
+import com.valance.petproject.presentation.ui.screen.NotesScreen
 
 @Composable
 fun BottomNavGraph(navController: NavHostController) {
@@ -19,7 +20,7 @@ fun BottomNavGraph(navController: NavHostController) {
         }
 
         composable(BottomBarScreen.Detail.route) {
-            MainScreen()
+            NotesScreen()
         }
     }
 }

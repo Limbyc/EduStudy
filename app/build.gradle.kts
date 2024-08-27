@@ -98,4 +98,8 @@ dependencies {
 
     //Gson
     implementation(libs.gson)
+
+    //CalendarBar
+    implementation(libs.ahmednader65.composesinglerowcalender)
+
 }
