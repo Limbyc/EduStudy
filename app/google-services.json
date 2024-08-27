@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "333456994682",
+    "project_id": "edustudy-797e7",
+    "storage_bucket": "edustudy-797e7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:333456994682:android:a134806023ed96f35266c3",
+        "android_client_info": {
+          "package_name": "com.valance.petproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKTA-pMPKrqztCdgqaIz1RMi7bnkz2NLw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
