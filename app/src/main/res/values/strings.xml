@@ -9,4 +9,6 @@
 
     //NotesScreen
     <string name="today">Today</string>
+    <string name="time">Time</string>
+    <string name="course">Course</string>
 </resources>
