@@ -97,3 +97,29 @@ fun CalendarDateText(
         color = com.valance.petproject.presentation.ui.theme.CalendarDateText
     )
 }
+
+@Composable
+fun TimeLessonStartText(
+    modifier: Modifier = Modifier,
+    text: String,
+){
+    Text(
+        modifier = modifier,
+        text = text,
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Medium,
+        color = com.valance.petproject.presentation.ui.theme.TimeStartLesson
+    )
+}
+
+@Composable
+fun TimeLessonEndText(
+    text: String,
+){
+    Text(
+        text = text,
+        fontSize = 14.sp,
+        fontWeight = FontWeight.Medium,
+        color = com.valance.petproject.presentation.ui.theme.TimeEndLesson
+    )
+}

@@ -23,3 +23,6 @@ val CalendarDayText = Color(0xFFBCC1CD)
 val CalendarDateText = Color(0xFF212525)
 val LineColor = Color(0xFFFAF9F9)
 val NameTextColor = Color(0xFFBCC1CD)
+
+val TimeStartLesson = Color(0xFF212525)
+val TimeEndLesson = Color(0xFFBCC1CD)

@@ -6,4 +6,7 @@ data class LessonCard(
     val teacher: String,
     val teacherIcon: String,
     val theme: String,
+    val timeStart: String,
+    val timeEnd: String,
+    val date: String,
 )

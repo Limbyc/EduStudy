@@ -121,6 +121,6 @@ fun CardLesson(
 @Composable
 private fun CardLessonPreview() {
     CardLesson(lesson = LessonCard("title", "theme", "place", "teacher",
-        "https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg"))
+        "https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg", "","",""))
 }
 
