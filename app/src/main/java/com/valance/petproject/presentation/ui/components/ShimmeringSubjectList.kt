@@ -11,7 +11,7 @@ fun ShimmeringSubjectList(
     modifier: Modifier = Modifier,
 ) {
     Row(modifier = modifier
-        .padding(top = 16.dp)) {
+        .padding(top = 16.dp, bottom = 10.dp)) {
         repeat(3) {
             SubjectCardShimmer(
                 modifier = modifier

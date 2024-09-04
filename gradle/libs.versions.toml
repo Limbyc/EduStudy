@@ -1,15 +1,9 @@
 [versions]
 agp = "8.5.0"
 coil = "2.7.0"
-composesinglerowcalenderVersion = "version"
 graphicsShapes = "1.0.0-rc01"
 gson = "2.10.1"
 insertKoinKoinAndroidxCompose = "3.2.0"
-koinAndroid = "3.5.6"
-koinAndroidxCompose = "1.1.5"
-koinAndroidxComposeVersion = "3.4.0"
-koinAndroidxViewmodelCompose = "3.4.0"
-koinAndroidxViewmodelVersion = "3.4.0"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
 
@@ -42,7 +36,6 @@ media3Common = "1.4.0"
 
 
 [libraries]
-ahmednader65-composesinglerowcalender = { module = "io.github.ahmednader65:ComposeSingleRowCalender", version.ref = "composesinglerowcalenderVersion" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-graphics-shapes = { module = "androidx.graphics:graphics-shapes", version.ref = "graphicsShapes" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -50,7 +43,6 @@ androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecyc
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 
-coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -69,12 +61,7 @@ androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx",
 
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 
-koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinAndroid" }
-koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinAndroidxCompose" }
 koin-androidx-compose-v320 = { module = "io.insert-koin:koin-androidx-compose", version.ref = "insertKoinKoinAndroidxCompose" }
-koin-androidx-viewmodel-compose = { module = "org.koin:koin-androidx-viewmodel-compose", version.ref = "koinAndroidxViewmodelCompose" }
-koin-koin-androidx-compose = { module = "org.koin:koin-androidx-compose", version.ref = "koinAndroidxComposeVersion" }
-koin-koin-androidx-viewmodel = { module = "org.koin:koin-androidx-viewmodel", version.ref = "koinAndroidxViewmodelVersion" }
 ui = { module = "androidx.compose.ui:ui", version.ref = "ui" }
 ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "uiTooling" }
 ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "uiToolingPreview" }
