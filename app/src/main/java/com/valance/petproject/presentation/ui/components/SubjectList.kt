@@ -1,6 +1,5 @@
 package com.valance.petproject.presentation.ui.components
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow

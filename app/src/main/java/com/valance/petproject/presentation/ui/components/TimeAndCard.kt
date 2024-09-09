@@ -52,8 +52,6 @@ fun TimeAndCard(
     }
 }
 
-
-
 @Preview
 @Composable
 fun TimeAndCardPreview(){

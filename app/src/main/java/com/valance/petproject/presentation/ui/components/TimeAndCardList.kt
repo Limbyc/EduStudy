@@ -11,6 +11,7 @@ fun TimeAndCardList(
     lessons: List<LessonCard>,
     modifier: Modifier = Modifier
 ) {
+
     Column(
         modifier = modifier.fillMaxSize()
     ) {

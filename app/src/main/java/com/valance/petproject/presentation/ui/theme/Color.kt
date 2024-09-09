@@ -26,3 +26,4 @@ val NameTextColor = Color(0xFFBCC1CD)
 
 val TimeStartLesson = Color(0xFF212525)
 val TimeEndLesson = Color(0xFFBCC1CD)
+val SelectedDateColor = Color(0xFFFF7648)

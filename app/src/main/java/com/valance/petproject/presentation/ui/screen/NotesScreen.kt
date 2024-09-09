@@ -1,28 +1,17 @@
 package com.valance.petproject.presentation.ui.screen
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -32,15 +21,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.valance.petproject.R
 import com.valance.petproject.presentation.state.LessonCardViewState
-import com.valance.petproject.presentation.ui.components.ButtonDate
-import com.valance.petproject.presentation.ui.components.CalendarBar
-import com.valance.petproject.presentation.ui.components.LessonList
-import com.valance.petproject.presentation.ui.components.SecondaryText
-import com.valance.petproject.presentation.ui.components.ShimmeringLessonList
-import com.valance.petproject.presentation.ui.components.TimeAndCard
-import com.valance.petproject.presentation.ui.components.TimeAndCardList
+import com.valance.petproject.presentation.ui.components.*
 import com.valance.petproject.presentation.viewmodel.LessonCardViewModel
-import org.jetbrains.annotations.Async
 import org.koin.androidx.compose.getViewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -48,21 +30,48 @@ import java.util.Locale
 
 @Composable
 fun NotesScreen() {
+    val viewModel: LessonCardViewModel = getViewModel()
 
-    val lessonCardViewModel: LessonCardViewModel = getViewModel()
-    val state by lessonCardViewModel.state.collectAsState()
+    val currentWeekStartDate by viewModel.currentWeekStartDate.collectAsState()
+    val state by viewModel.state.collectAsState()
+    val initialWeekStartDate = remember { currentWeekStartDate }
 
-    Calendar(state = state)
-    CurrentDate()
+    var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
+
+    var visibleWeekStartDate by remember { mutableStateOf(currentWeekStartDate) }
+
+    Calendar(
+        state = state,
+        currentWeekStartDate = visibleWeekStartDate,
+        selectedDate = selectedDate,
+        onDateSelected = { date ->
+            selectedDate = date
+        },
+        onWeekStartDateChange = { newDate ->
+            visibleWeekStartDate = newDate
+            viewModel.updateWeekStartDate(newDate)
+        }
+    )
+
+    CurrentDate(
+        selectedDate = selectedDate,
+        onTodayClick = {
+            visibleWeekStartDate = initialWeekStartDate
+            selectedDate = null
+            viewModel.updateWeekStartDate(initialWeekStartDate)
+        }
+    )
 }
 
 @Composable
 fun CurrentDate(
     modifier: Modifier = Modifier,
+    selectedDate: LocalDate?,
+    onTodayClick: () -> Unit
 ) {
-    val currentDate = LocalDate.now()
+    val currentDate = selectedDate ?: LocalDate.now()
 
-    val dayFormatter = DateTimeFormatter.ofPattern("dd")
+    val dayFormatter = DateTimeFormatter.ofPattern("dd", Locale.getDefault())
     val dayText = currentDate.format(dayFormatter)
 
     val dayOfWeekFormatter = DateTimeFormatter.ofPattern("EEE", Locale.ENGLISH)
@@ -73,14 +82,8 @@ fun CurrentDate(
 
     Row(
         modifier = modifier
-            .padding(
-                top = 32.dp,
-                start = 28.dp,
-                end = 28.dp,
-                bottom = 14.dp
-            ),
+            .padding(top = 32.dp, start = 28.dp, end = 28.dp, bottom = 14.dp),
         verticalAlignment = Alignment.CenterVertically
-
     ) {
         Text(
             modifier = modifier,
@@ -90,17 +93,14 @@ fun CurrentDate(
             color = Color.Black
         )
 
-        Column(
-            modifier = modifier
-                .padding(start = 8.dp)
-        ) {
+        Column(modifier = modifier.padding(start = 8.dp)) {
             SecondaryText(text = dayOfWeekText)
             SecondaryText(text = monthYearText)
         }
 
         Spacer(modifier = modifier.weight(1f))
 
-        ButtonDate()
+        ButtonDate(onClick = onTodayClick)
     }
 }
 
@@ -108,7 +108,13 @@ fun CurrentDate(
 fun Calendar(
     modifier: Modifier = Modifier,
     state: LessonCardViewState,
+    currentWeekStartDate: LocalDate,
+    selectedDate: LocalDate?,
+    onDateSelected: (LocalDate) -> Unit,
+    onWeekStartDateChange: (LocalDate) -> Unit
 ) {
+    Log.d("Calendar", "Rendering with current week start date: $currentWeekStartDate")
+
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -118,7 +124,12 @@ fun Calendar(
             .padding(top = 10.dp)
     ) {
         Column {
-            CalendarBar()
+            CalendarBar(
+                initialWeekStartDate = currentWeekStartDate,
+                selectedDate = selectedDate,
+                onDateSelected = onDateSelected,
+                onWeekStartDateChange = onWeekStartDateChange
+            )
 
             HorizontalDivider(
                 color = com.valance.petproject.presentation.ui.theme.LineColor,
@@ -133,20 +144,14 @@ fun Calendar(
 @Composable
 fun Schedule(
     modifier: Modifier = Modifier,
-    lessonState: LessonCardViewState,
+    lessonState: LessonCardViewState
 ) {
     Column(
         modifier = modifier
-            .padding(
-                start = 28.dp,
-                end = 28.dp,
-                top = 14.dp,
-            ),
+            .padding(start = 28.dp, end = 28.dp, top = 14.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
-
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically)
-        {
+        Row(verticalAlignment = Alignment.CenterVertically) {
             SecondaryText(text = stringResource(R.string.time))
 
             Spacer(modifier = Modifier.width(34.dp))
@@ -162,26 +167,18 @@ fun Schedule(
         }
 
         when (lessonState) {
-            is LessonCardViewState.Loading -> {
-                CircularProgressIndicator()
-            }
+            is LessonCardViewState.Loading -> CircularProgressIndicator()
 
-            is LessonCardViewState.Success -> {
-                TimeAndCardList(lessons = lessonState.lessons)
-            }
+            is LessonCardViewState.Success -> TimeAndCardList(lessons = lessonState.lessons)
 
-            is LessonCardViewState.Error -> {
-                Text(
-                    text = lessonState.message,
-                    color = Color.Red,
-                    modifier = Modifier.padding(16.dp)
-                )
-            }
+            is LessonCardViewState.Error -> Text(
+                text = lessonState.message,
+                color = Color.Red,
+                modifier = Modifier.padding(16.dp)
+            )
         }
-
     }
 }
-
 
 @Preview
 @Composable

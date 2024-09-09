@@ -1,5 +1,6 @@
 package com.valance.petproject.presentation.ui.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -74,13 +75,16 @@ fun CurrentDateText(
 
 @Composable
 fun CalendarDayText(
+    modifier: Modifier = Modifier,
     text: String,
+    color: Color
 ){
     Text(
+        modifier = modifier,
         text = text,
         fontSize = 12.sp,
         fontWeight = FontWeight.Medium,
-        color = com.valance.petproject.presentation.ui.theme.CalendarDayText
+        color = color
     )
 }
 
@@ -88,13 +92,14 @@ fun CalendarDayText(
 fun CalendarDateText(
     modifier: Modifier = Modifier,
     text: String,
+    color: Color
 ){
     Text(
         modifier = modifier,
         text = text,
         fontSize = 16.sp,
         fontWeight = FontWeight.SemiBold,
-        color = com.valance.petproject.presentation.ui.theme.CalendarDateText
+        color = color
     )
 }
 
