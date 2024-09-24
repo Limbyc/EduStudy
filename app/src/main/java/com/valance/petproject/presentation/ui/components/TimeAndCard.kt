@@ -1,5 +1,6 @@
 package com.valance.petproject.presentation.ui.components
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,41 +15,53 @@ import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.valance.petproject.domain.model.LessonCard
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 
 @Composable
 fun TimeAndCard(
     modifier: Modifier = Modifier,
-    lesson: LessonCard
+    lesson: LessonCard,
+    currentDate: LocalDate
 ) {
+    val lessonDate = LocalDate.parse(lesson.date, DateTimeFormatter.ISO_LOCAL_DATE)
 
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-    ) {
-        Column(
-            modifier = modifier,
-            horizontalAlignment = Alignment.CenterHorizontally,
+    Log.d("currentDate123",currentDate.toString())
+    Log.d("currentDate1234", lesson.date)
+
+    if (lessonDate == currentDate) {
+
+        Row(
+            modifier = modifier
+                .fillMaxWidth()
         ) {
-            TimeLessonStartText(
-                modifier = modifier.padding(bottom = 6.dp), lesson.timeStart
+            Column(
+                modifier = modifier,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                TimeLessonStartText(
+                    modifier = modifier.padding(bottom = 6.dp), lesson.timeStart
+                )
+                TimeLessonEndText(lesson.timeEnd)
+            }
+
+            Box(
+                modifier = modifier
+                    .padding(start = 16.dp, end = 16.dp)
+                    .height(160.dp)
+            ) {
+
+                VerticalDivider(
+                    color = com.valance.petproject.presentation.ui.theme.LineColor,
+                    thickness = 1.dp
+                )
+            }
+
+            CardLesson(
+                lesson = lesson
             )
-            TimeLessonEndText(lesson.timeEnd)
         }
-
-        Box(modifier = modifier
-            .padding(start = 16.dp, end = 16.dp)
-            .height(160.dp)) {
-
-            VerticalDivider(
-                color = com.valance.petproject.presentation.ui.theme.LineColor,
-                thickness = 1.dp
-            )
-        }
-
-        CardLesson(
-            lesson = lesson
-        )
     }
 }
 
@@ -58,5 +71,5 @@ fun TimeAndCardPreview(){
     TimeAndCard(lesson = LessonCard(
         "title", "theme", "place", "teacher",
         "https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg","","",""
-    ))
+    ), currentDate = LocalDate.of(2024, 9, 3))
 }

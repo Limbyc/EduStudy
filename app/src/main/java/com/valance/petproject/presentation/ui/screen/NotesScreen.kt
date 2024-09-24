@@ -128,7 +128,8 @@ fun Calendar(
                 initialWeekStartDate = currentWeekStartDate,
                 selectedDate = selectedDate,
                 onDateSelected = onDateSelected,
-                onWeekStartDateChange = onWeekStartDateChange
+                onWeekStartDateChange = onWeekStartDateChange,
+                lessons = listOf()
             )
 
             HorizontalDivider(
@@ -146,6 +147,8 @@ fun Schedule(
     modifier: Modifier = Modifier,
     lessonState: LessonCardViewState
 ) {
+    val viewModel: LessonCardViewModel = getViewModel()
+
     Column(
         modifier = modifier
             .padding(start = 28.dp, end = 28.dp, top = 14.dp),
@@ -169,7 +172,10 @@ fun Schedule(
         when (lessonState) {
             is LessonCardViewState.Loading -> CircularProgressIndicator()
 
-            is LessonCardViewState.Success -> TimeAndCardList(lessons = lessonState.lessons)
+            is LessonCardViewState.Success -> {
+                val currentDate = viewModel.selectedDate.value ?: LocalDate.now()
+                TimeAndCardList(currentDate = currentDate, lessons = lessonState.lessons)
+            }
 
             is LessonCardViewState.Error -> Text(
                 text = lessonState.message,

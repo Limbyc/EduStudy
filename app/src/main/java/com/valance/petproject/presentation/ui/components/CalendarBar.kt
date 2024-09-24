@@ -22,8 +22,12 @@
     import androidx.compose.ui.unit.dp
     import com.valance.petproject.data.localdata.DayWithDate
     import com.valance.petproject.domain.DayOfWeek
+    import com.valance.petproject.domain.model.LessonCard
     import com.valance.petproject.domain.model.SwipeDirection
+    import com.valance.petproject.presentation.viewmodel.LessonCardViewModel
+    import org.koin.androidx.compose.getViewModel
     import java.time.LocalDate
+    import java.time.format.DateTimeFormatter
     import java.time.temporal.WeekFields
     import java.util.*
 
@@ -32,10 +36,14 @@
         initialWeekStartDate: LocalDate,
         selectedDate: LocalDate?,
         onDateSelected: (LocalDate) -> Unit,
-        onWeekStartDateChange: (LocalDate) -> Unit
+        onWeekStartDateChange: (LocalDate) -> Unit,
+        lessons: List<LessonCard>,
     ) {
+        val viewModel: LessonCardViewModel = getViewModel()
         var currentWeekStartDate by remember { mutableStateOf(initialWeekStartDate) }
         val weekWithDates = getWeekWithDates(currentWeekStartDate)
+        var displayDate by remember { mutableStateOf<LocalDate?>(null) }
+        var displayLessons by remember { mutableStateOf<List<LessonCard>>(emptyList()) }
 
         Column {
             CalendarCard(
@@ -50,11 +58,20 @@
                 },
                 onDateSelected = { date ->
                     onDateSelected(date)
+                    viewModel.setDate(date)
                 }
+
             )
+
+            displayDate?.let { date ->
+                LaunchedEffect(date) {
+                    Log.d("CalendarBar", "Updating lessons for $date")
+                    displayLessons = lessons.filter { LocalDate.parse(it.date, DateTimeFormatter.ISO_LOCAL_DATE) == date }
+                }
+            }
+
         }
     }
-
 
     @Composable
     fun CalendarCard(

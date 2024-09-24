@@ -1,6 +1,7 @@
 package com.valance.petproject.presentation.viewmodel
 
 import android.util.Log
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.valance.petproject.presentation.feature.LessonCardFeature
 import com.valance.petproject.presentation.intent.LessonCardIntent
@@ -20,6 +21,7 @@ class LessonCardViewModel(
     val state: StateFlow<LessonCardViewState> = lessonCardFeature.viewStateFlow
     private val _currentWeekStartDate = MutableStateFlow(getCurrentWeekStartDate())
     val currentWeekStartDate: StateFlow<LocalDate> = _currentWeekStartDate.asStateFlow()
+    var selectedDate = mutableStateOf<LocalDate?>(null)
 
     init {
         lessonCardFeature.onAction(LessonCardIntent.LoadLessonCard(""))
@@ -33,5 +35,8 @@ class LessonCardViewModel(
         _currentWeekStartDate.value = newDate
     }
 
+    fun setDate(date: LocalDate) {
+        selectedDate.value = date
+    }
 }
 

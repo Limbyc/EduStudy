@@ -8,7 +8,7 @@ import com.valance.petproject.domain.model.LessonCard
 import com.valance.petproject.domain.model.SubjectCard
 import kotlinx.coroutines.tasks.await
 
-class SubjectDataSource(private val database: FirebaseDatabase) {
+class SubjectDataSource(private val database:  FirebaseDatabase) {
         suspend fun getSubjectCard(cardId: String): List<SubjectCard> {
         val reference = database.getReference("subjectCard/$cardId")
         val snapshot = reference.get().await()
