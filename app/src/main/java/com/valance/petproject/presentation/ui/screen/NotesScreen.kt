@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -13,13 +13,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.valance.petproject.R
+import com.valance.petproject.domain.model.LessonCard
 import com.valance.petproject.presentation.state.LessonCardViewState
 import com.valance.petproject.presentation.ui.components.*
 import com.valance.petproject.presentation.viewmodel.LessonCardViewModel
@@ -40,6 +43,7 @@ fun NotesScreen() {
 
     var visibleWeekStartDate by remember { mutableStateOf(currentWeekStartDate) }
 
+
     Calendar(
         state = state,
         currentWeekStartDate = visibleWeekStartDate,
@@ -50,7 +54,7 @@ fun NotesScreen() {
         onWeekStartDateChange = { newDate ->
             visibleWeekStartDate = newDate
             viewModel.updateWeekStartDate(newDate)
-        }
+        },
     )
 
     CurrentDate(
@@ -111,7 +115,7 @@ fun Calendar(
     currentWeekStartDate: LocalDate,
     selectedDate: LocalDate?,
     onDateSelected: (LocalDate) -> Unit,
-    onWeekStartDateChange: (LocalDate) -> Unit
+    onWeekStartDateChange: (LocalDate) -> Unit,
 ) {
     Log.d("Calendar", "Rendering with current week start date: $currentWeekStartDate")
 
@@ -145,7 +149,7 @@ fun Calendar(
 @Composable
 fun Schedule(
     modifier: Modifier = Modifier,
-    lessonState: LessonCardViewState
+    lessonState: LessonCardViewState,
 ) {
     val viewModel: LessonCardViewModel = getViewModel()
 
@@ -170,11 +174,45 @@ fun Schedule(
         }
 
         when (lessonState) {
-            is LessonCardViewState.Loading -> CircularProgressIndicator()
+            is LessonCardViewState.Loading ->
+                Box(modifier
+                    .fillMaxSize()
+                ) {
+                    GifImageLoader(modifier
+                        .align(Alignment.Center),
+                    )
+                }
 
             is LessonCardViewState.Success -> {
                 val currentDate = viewModel.selectedDate.value ?: LocalDate.now()
-                TimeAndCardList(currentDate = currentDate, lessons = lessonState.lessons)
+
+                val lessons = lessonState.lessons
+                if (lessons.isNotEmpty()) {
+                    val lesson = lessons.firstOrNull {
+                        LocalDate.parse(it.date, DateTimeFormatter.ISO_LOCAL_DATE) == currentDate
+                    }
+
+                    if (lesson == null) {
+                        Box(modifier = Modifier.fillMaxSize()) {
+                            Column(
+                                modifier = Modifier.align(Alignment.Center),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.Center,
+                            ) {
+                                Image(
+                                    modifier = Modifier.size(100.dp),
+                                    painter = painterResource(id = R.drawable.plan),
+                                    contentDescription = null
+                                )
+                                Text(modifier = Modifier
+                                    .padding(top = 8.dp),
+                                    text = "У вас пока нет запланированных занятий")
+                            }
+                        }
+                    } else {
+                        TimeAndCardList(currentDate = currentDate, lessons = lessonState.lessons)
+                    }
+                }
             }
 
             is LessonCardViewState.Error -> Text(
@@ -185,6 +223,7 @@ fun Schedule(
         }
     }
 }
+
 
 @Preview
 @Composable

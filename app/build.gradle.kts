@@ -88,6 +88,7 @@ dependencies {
     
     //Coil
     implementation(libs.coil.compose)
+    implementation(libs.coil.gif.v220)
 
     //firebase
     implementation(libs.firebase.database)

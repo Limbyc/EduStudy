@@ -27,9 +27,6 @@ fun TimeAndCard(
 ) {
     val lessonDate = LocalDate.parse(lesson.date, DateTimeFormatter.ISO_LOCAL_DATE)
 
-    Log.d("currentDate123",currentDate.toString())
-    Log.d("currentDate1234", lesson.date)
-
     if (lessonDate == currentDate) {
 
         Row(

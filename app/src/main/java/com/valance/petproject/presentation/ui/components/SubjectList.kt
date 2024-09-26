@@ -25,7 +25,7 @@ fun SubjectList(
         horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         items(items) { item ->
-            CardSubject(item = item)
+            CardSubject(item = item, onClick = {})
         }
     }
 

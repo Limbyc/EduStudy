@@ -1,7 +1,11 @@
 package com.valance.petproject.presentation.ui.components
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,9 +20,14 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -38,9 +47,17 @@ fun parseColor(colorString: String): Color {
 fun CardSubject(
     modifier: Modifier = Modifier,
     item: SubjectCard,
+    onClick: () -> Unit
     ) {
 
-    val color = parseColor(item.color)
+    var isPressed by remember { mutableStateOf(false) }
+
+    val originalColor = parseColor(item.color)
+
+    val animatedColor by animateColorAsState(
+        targetValue = if (isPressed) originalColor.copy(alpha = 0.5f) else originalColor,
+        animationSpec = tween(durationMillis = 100)
+    )
 
     Box(
         modifier = modifier
@@ -48,8 +65,18 @@ fun CardSubject(
             .width(149.dp)
             .height(119.dp)
             .clip(RoundedCornerShape(16.dp))
-            .background(color = color)
-    ) {
+            .background(color = animatedColor)
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onPress = {
+                        isPressed = true
+                        tryAwaitRelease()
+                        isPressed = false
+                        onClick()
+                    }
+                )
+            }
+    ){
         Column(
             modifier = modifier.fillMaxSize()
         ) {
@@ -102,7 +129,7 @@ fun CardSubject(
 @Preview
 @Composable
 private fun CardSubjectPreview() {
-    CardSubject(item = SubjectCard("Hello", Color.Gray.toString(),  "R.drawable.earth" ))
+    CardSubject(item = SubjectCard("Hello", Color.Gray.toString(),  "R.drawable.earth" ), onClick = {})
 }
 
 
