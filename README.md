@@ -1,5 +1,5 @@
 ## EduStudy
-The mobile application is designed for those who value their time and want to be always aware of their schedule. Easily track the dates and times of your classes to make sure no important event goes unnoticed. 
+The mobile application is created for those who value their time and want to be always aware of their schedule. It allows you to easily track the dates and times of your classes so that no important event is left unnoticed.
 ## Architecture
 This application follows the classic SOLID based clean architecture approach. This approach differs from official architecture guidance, but it is actively used by many developers.
 ## Features
