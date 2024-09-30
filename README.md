@@ -3,9 +3,9 @@ The mobile application is designed for those who value their time and want to be
 ## Architecture
 This application follows the classic SOLID based clean architecture approach. This approach differs from official architecture guidance, but it is actively used by many developers.
 ## Features
-- Koin
-- Firebase
-- Coil
+- Koin for DI
+- Realtime DataBase Firebase 
+- Coil for images and gifs
 - Compose
 - MVI 
 ## Screens 
